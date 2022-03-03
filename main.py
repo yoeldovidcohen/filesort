@@ -3,22 +3,22 @@ import os
 
 directory = os.getcwd()
 
-# def file_list(directory):
-#     for filename in os.scandir(directory):
-#         if filename.is_file():
-#             print(filename.path)
-        
+new_folder_name = 'the_sorted_files'
+
+if not os.path.exists(new_folder_name):
+    os.makedirs(new_folder_name)
 
 
-# def folder_list(directory):
-#     for filename in os.scandir(directory):
-#         if filename.is_dir():
-#             print(filename.path)
 
-# file_list(directory)
-# folder_list(directory)
+def move_file(filepath: os.DirEntry[str]):
+    
+    return
 
-size = 0
+def get_file_name_from_path(filepath):
+    return filepath.path[filepath.path.rfind('/')+1:-1]
+
+
+# size = 0
 
 
 def all_files_list(directory):
@@ -27,12 +27,16 @@ def all_files_list(directory):
     for filename in os.scandir(directory):
         
         if filename.is_file():
-            size += os.path.getsize(filename)
+            # size += os.path.getsize(filename)
             print(filename.path)
+            last_file_name = get_file_name_from_path(filename) 
+            print(last_file_name)
+            # print(filename.path[filename.path.rfind('.)')+1:-1])
+            # print(filename.path[last_file_name:-1])
         elif filename.is_dir():
             print(filename.path)
             all_files_list(filename.path)
 
 
 all_files_list(directory)
-print(size)
+# print(size)
