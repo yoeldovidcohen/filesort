@@ -1,42 +1,29 @@
 from ast import For
 import os
-
-directory = os.getcwd()
-
-new_folder_name = 'the_sorted_files'
-
-if not os.path.exists(new_folder_name):
-    os.makedirs(new_folder_name)
+from pathlib import Path,  PurePath
+import argparse
+import this
 
 
 
-def move_file(filepath: os.DirEntry[str]):
+
+
+directory = Path(Path.cwd())
+files_dir = Path.cwd() / "the_new_directory"
+files_dir_temp = Path.cwd() / "the_new_directory_temp"
+
+print(directory.absolute())
+# exit()
+
+the_new_dir = Path.mkdir(files_dir, exist_ok=True)
+the_themp_dir = Path.mkdir(files_dir_temp, exist_ok=True)
+
+for dir_file in directory.iterdir():
+    if not dir_file.name.find("the_new_directory"):
+        dir_file.rename(f"${files_dir_temp.absolute}/${dir_file.absolute}")
+
+file_list = directory.glob('**/**')
+
+for file in file_list:
+    print(file.absolute())
     
-    return
-
-def get_file_name_from_path(filepath):
-    return filepath.path[filepath.path.rfind('/')+1:-1]
-
-
-# size = 0
-
-
-def all_files_list(directory):
-    global size
-
-    for filename in os.scandir(directory):
-        
-        if filename.is_file():
-            # size += os.path.getsize(filename)
-            print(filename.path)
-            last_file_name = get_file_name_from_path(filename) 
-            print(last_file_name)
-            # print(filename.path[filename.path.rfind('.)')+1:-1])
-            # print(filename.path[last_file_name:-1])
-        elif filename.is_dir():
-            print(filename.path)
-            all_files_list(filename.path)
-
-
-all_files_list(directory)
-# print(size)
