@@ -9,8 +9,8 @@ import this
 
 
 directory = Path(Path.cwd())
-files_dir = Path.cwd() / "the_new_directory"
-files_dir_temp = Path.cwd() / "the_new_directory_temp"
+files_dir = Path.mkdir(f"${Path.cwd.__str__()}/the_new_directory")
+# files_dir_temp = Path.cwd() / "the_new_directory_temp"
 
 print(directory.absolute())
 # exit()
