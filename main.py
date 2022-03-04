@@ -1,29 +1,44 @@
-from ast import For
-import os
-from pathlib import Path,  PurePath
-import argparse
-import this
+
+
+from os import getcwd, mkdir
+from pathlib import Path
+import shutil
+
+sysdirname="thenewdir"
+systempdirname=sysdirname+"temp"
 
 
 
 
+working_dir = Path(Path.cwd())
 
-directory = Path(Path.cwd())
-files_dir = Path.mkdir(f"${Path.cwd.__str__()}/the_new_directory")
-# files_dir_temp = Path.cwd() / "the_new_directory_temp"
+sysdir = Path(Path.joinpath(Path.cwd(), sysdirname))
+# sysdir.mkdir(exist_ok=True)
 
-print(directory.absolute())
-# exit()
+sysdirtemp= Path(Path.joinpath(Path.cwd(), systempdirname))
+# sysdirtemp.mkdir(exist_ok=True)
 
-the_new_dir = Path.mkdir(files_dir, exist_ok=True)
-the_themp_dir = Path.mkdir(files_dir_temp, exist_ok=True)
+print(working_dir.is_dir())
+itr_working_dir = working_dir.iterdir()
+for item in itr_working_dir:
+    print(item.name)
+    is_system_folder = 'the_new_dir' in item.name
+    print(str(is_system_folder))
+    if not is_system_folder:
+        # print(new_name.name)
+        shutil.move(item, sysdirtemp)
 
-for dir_file in directory.iterdir():
-    if not dir_file.name.find("the_new_directory"):
-        dir_file.rename(f"${files_dir_temp.absolute}/${dir_file.absolute}")
 
-file_list = directory.glob('**/**')
+def iterdir(dir_path: Path):
+    for item in dir_path.iterdir():
+        print(item.as_uri)
+        if item.is_file():
+            if item.suffix:
+                print(item.suffix[1:])
+            else:
+                print(f"${item.name} has no suffix")
+        if item.is_dir():
+            print(f"${item.name} is a directory")
+            iterdir(item)
 
-for file in file_list:
-    print(file.absolute())
-    
+iterdir(sysdirtemp)
