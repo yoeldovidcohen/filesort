@@ -50,7 +50,7 @@ def iterdir(dir_path: Path):
                     new_path = Path.joinpath(suffix_folder, new_random_name)
                     print("file exists")
                     print(new_path)
-                    a = input('hi\n')
+                    # a = input('hi\n')
 
                     # exit()
                 print(new_path.as_uri)
